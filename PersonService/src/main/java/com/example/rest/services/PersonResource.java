@@ -20,11 +20,11 @@ public class PersonResource {
 
     @GET
     public Response getPersons() {
-        List<Person> persons = getMockDate();
+        List<Person> persons = getMockData();
         return Response.ok(persons.toArray(new Person[persons.size()])).build();
     }
 
-    private List<Person> getMockDate() {
+    private List<Person> getMockData() {
 
         List<Person> persons = new ArrayList<Person>();
         persons.add(new Person(1, "Edwin", "Biemond"));

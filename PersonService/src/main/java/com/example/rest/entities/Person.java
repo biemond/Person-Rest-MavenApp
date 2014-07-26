@@ -45,25 +45,4 @@ public class Person {
         return lastName;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (!(object instanceof Person)) {
-            return false;
-        }
-        final Person other = (Person) object;
-        if (!(id == null ? other.id == null : id.equals(other.id))) {
-            return false;
-        }
-        if (!(firstName == null ? other.firstName == null : firstName.equals(other.firstName))) {
-            return false;
-        }
-        if (!(lastName == null ? other.lastName == null : lastName.equals(other.lastName))) {
-            return false;
-        }
-        return true;
-    }
-
 }

@@ -13,7 +13,8 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 
 
@@ -30,11 +31,11 @@ public class PersonResourceTest  extends JerseyTest {
     public void test() {
       final Response result  =  target("person").request().accept(MediaType.APPLICATION_JSON).get(Response.class);
       if(result.getStatus() != Response.Status.OK.getStatusCode()){
-        Assert.fail("Wrong status code "+result.getStatus());   
+        fail("Wrong status code "+result.getStatus());   
       }    
       
       List<Person> persons =  result.readEntity(new GenericType<List<Person>>() {});
-      Assert.assertEquals(2,persons.size());
+      assertEquals(2,persons.size());
     }
 
 }
