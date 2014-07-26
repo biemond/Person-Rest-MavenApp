@@ -59,6 +59,10 @@
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
    </list>
    <value n="defaultPackage" v="com.example.rest.person"/>
+   <hash n="ejbModuleContainer">
+      <value n="ejbVersion" v="3.0"/>
+      <value n="ejbVersionMinor" v="0.1"/>
+   </hash>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="constituent-sets">
@@ -179,6 +183,10 @@
          </hash>
          <hash>
             <value n="id" v="junit:junit:4.11:jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="org.mockito:mockito-all:1.9.5:jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -454,6 +462,15 @@
                <value n="id" v="org.glassfish.jersey.media:jersey-media-json-jackson:2.11:jar"/>
                <value n="locked" v="true"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url protocol="file" path="${maven:maven.local.repo}org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.jar"/>
+               </list>
+               <value n="deployedByDefault" v="false"/>
+               <value n="description" v="org.mockito:mockito-all:1.9.5:jar"/>
+               <value n="id" v="org.mockito:mockito-all:1.9.5:jar"/>
+               <value n="locked" v="true"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -493,9 +510,18 @@
             <value n="id" v="junit:junit:4.11:jar"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="org.mockito:mockito-all:1.9.5:jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
       <url n="outputDirectory" path="target/classes/"/>
+   </hash>
+   <hash n="oracle.toplink.workbench.addin">
+      <hash n="persistence-list">
+         <value n="jpa-version" v="2.0"/>
+      </hash>
    </hash>
 </jpr:project>

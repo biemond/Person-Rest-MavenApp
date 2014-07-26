@@ -14,6 +14,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 
@@ -28,14 +29,51 @@ public class PersonResourceTest  extends JerseyTest {
     }
 
     @Test
-    public void test() {
-      final Response result  =  target("person").request().accept(MediaType.APPLICATION_JSON).get(Response.class);
+    public void findAll() {
+      final Response result = target("person").request()
+                                              .accept(MediaType.APPLICATION_JSON)
+                                              .get(Response.class);
+
       if(result.getStatus() != Response.Status.OK.getStatusCode()){
         fail("Wrong status code "+result.getStatus());   
       }    
       
-      List<Person> persons =  result.readEntity(new GenericType<List<Person>>() {});
+      List<Person> persons =  result.readEntity(new GenericType<List<Person>>(){});
+
       assertEquals(2,persons.size());
+
+      for ( Person person : persons) {
+          assertNotNull(person.getId());
+          if ( person.getId() == 1 ) {
+              assertEquals("Edwin",person.getFirstName()); 
+          }
+          if ( person.getId() == 2 ) {
+              assertEquals("Mark",person.getFirstName()); 
+          }      
+       }
+    }
+
+    @Test
+    public void findPerson() {
+      final Response result = target("person/1").request()
+                                              .accept(MediaType.APPLICATION_JSON)
+                                              .get(Response.class);
+
+      if(result.getStatus() != Response.Status.OK.getStatusCode()){
+        fail("Wrong status code "+result.getStatus());   
+      }    
+      
+      Person person = result.readEntity(new GenericType<Person>(){});
+      assertEquals("Edwin",person.getFirstName()); 
+    }
+
+    @Test
+    public void findPersonNotfound() {
+      final Response result = target("person/100").request()
+                                              .accept(MediaType.APPLICATION_JSON)
+                                              .get(Response.class);
+
+      assertEquals(result.getStatus(), Response.Status.NOT_FOUND.getStatusCode());
     }
 
 }
