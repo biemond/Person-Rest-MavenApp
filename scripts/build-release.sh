@@ -13,3 +13,9 @@ mvn versions:set \
     -DgenerateBackupPoms=false \
     -DnewVersion="$RELEASE_VERSION" \
     --file pom.xml
+
+
+#mvn clean deploy \
+#	--batch-mode \
+#	--errors \
+#	-DaltDeploymentRepository="staging::default::file://${PWD}/staging"
