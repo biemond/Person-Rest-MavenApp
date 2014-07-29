@@ -113,8 +113,8 @@
       <url n="pomfileURL" path="pom.xml"/>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="Person-Rest-MavenApp-PersonService-webapp"/>
-      <value n="j2eeWebContextRoot" v="Person-Rest-MavenApp-PersonService-context-root"/>
+      <value n="j2eeWebAppName" v="PersonService-webapp"/>
+      <value n="j2eeWebContextRoot" v="PersonService-1.0"/>
       <hash n="webContentSet">
          <list n="pattern-filters">
             <string v="+**"/>

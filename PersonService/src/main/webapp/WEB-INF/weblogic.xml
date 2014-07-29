@@ -2,6 +2,8 @@
 <weblogic-web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.5/weblogic-web-app.xsd"
                   xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app">
+  <weblogic-version>12.1.3</weblogic-version>
+  <context-root>PersonService-1.0</context-root>
   <library-ref>
     <library-name>jax-rs</library-name>
     <specification-version>2.0</specification-version>
