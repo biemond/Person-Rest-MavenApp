@@ -54,6 +54,23 @@
                             <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
                             <targets>DefaultServer</targets>
                             <verbose>true</verbose>
+                            <remote>true</remote>
+                            <name>${project.build.finalName}</name>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>wls-undeploy</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>undeploy</goal>
+                        </goals>
+                        <configuration>
+                            <adminurl>t3://127.0.0.1:7101</adminurl>
+                            <user>weblogic</user>
+                            <password>weblogic1</password>
+                            <targets>DefaultServer</targets>
+                            <verbose>true</verbose>
+                            <remote>true</remote>
                             <name>${project.build.finalName}</name>
                         </configuration>
                     </execution>
