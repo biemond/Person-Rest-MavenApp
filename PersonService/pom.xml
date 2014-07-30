@@ -19,11 +19,11 @@
 
     <properties>
       <project_mdwhome>/Users/edwin/Oracle/JDevMiddleware12.1.3_normal</project_mdwhome>
-      <project_adminurl>t3://127.0.0.1:7101</project_adminurl>
+      <project_adminurl>t3://127.0.0.1:7001</project_adminurl>
       <project_wlsusername>weblogic</project_wlsusername>
       <project_wlspassword>weblogic1</project_wlspassword>
-      <project_wstarget>DefaultServer</project_wstarget>
-      <project_wsurl>http://127.0.0.1:7101</project_wsurl>
+      <project_wstarget>AdminServer</project_wstarget>
+      <project_wsurl>http://127.0.0.1:7001</project_wsurl>
     </properties>
 
 
@@ -49,8 +49,43 @@
                 <version>12.1.3-0-0</version>
                 <configuration>
                     <middlewareHome>${project_mdwhome}</middlewareHome>
+                    <user>${project_wlsusername}</user>
+                    <password>${project_wlspassword}</password>
+                    <domainHome>${project.build.directory}/base_domain</domainHome>
+                    <adminurl>${project_adminurl}</adminurl>
+                    <targets>${project_wstarget}</targets>
                 </configuration>
                 <executions>
+                    <execution>
+                        <id>wls-create-domain</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>create-domain</goal>
+                        </goals>
+                        <configuration>
+                            <failOnDomainExists>true</failOnDomainExists>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>wls-start-domain</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start-server</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>wls-deploy-jax-rs</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <configuration>
+                            <source>${project_mdwhome}/wlserver/common/deployable-libraries/jax-rs-2.0.war</source>
+                            <verbose>true</verbose>
+                            <name>jax-rs</name>
+                            <library>true</library>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>wls-deploy</id>
                         <phase>pre-integration-test</phase>
@@ -58,13 +93,8 @@
                             <goal>deploy</goal>
                         </goals>
                         <configuration>
-                            <adminurl>${project_adminurl}</adminurl>
-                            <user>${project_wlsusername}</user>
-                            <password>${project_wlspassword}</password>
                             <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
-                            <targets>${project_wstarget}</targets>
                             <verbose>true</verbose>
-                            <remote>true</remote>
                             <name>${project.build.finalName}</name>
                         </configuration>
                     </execution>
@@ -75,14 +105,23 @@
                             <goal>undeploy</goal>
                         </goals>
                         <configuration>
-                            <adminurl>${project_adminurl}</adminurl>
-                            <user>${project_wlsusername}</user>
-                            <password>${project_wlspassword}</password>
-                            <targets>${project_wstarget}</targets>
                             <verbose>true</verbose>
-                            <remote>true</remote>
                             <name>${project.build.finalName}</name>
                         </configuration>
+                    </execution>
+                    <execution>
+                        <id>wls-stop-domain</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop-server</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>wls-destroy-domain</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>remove-domain</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -136,7 +175,7 @@
                 <skip>false</skip>
               </configuration>
             </plugin>
-            </plugins>
+        </plugins>
         <testSourceDirectory>src/main/test/java</testSourceDirectory>
     </build>
 
