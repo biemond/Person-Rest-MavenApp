@@ -1,4 +1,4 @@
-package test.com.example.rest.services;
+package com.example.rest.services;
 
 import com.example.rest.data.PersonDao;
 import com.example.rest.data.PersonNotFoundException;
@@ -48,7 +48,7 @@ public class PersonResourceMockTest  extends JerseyTest {
 
       List<Person> mockPersons = new ArrayList<Person>();
       mockPersons.add(new Person(1,"John","Doe"));
-        
+
       when(personDao.findAll()).thenReturn(mockPersons);
 
       Response result = target("person").request()
@@ -56,20 +56,20 @@ public class PersonResourceMockTest  extends JerseyTest {
                                         .get(Response.class);
 
       if(result.getStatus() != Response.Status.OK.getStatusCode()){
-        fail("Wrong status code "+result.getStatus());   
-      }    
+        fail("Wrong status code "+result.getStatus());
+      }
 
       verify(personDao).findAll();
-      
+
       List<Person> persons =  result.readEntity(new GenericType<List<Person>>(){});
 
       assertEquals(1,persons.size());
       for ( Person person : persons) {
          assertNotNull(person.getId());
          if ( person.getId() == 1 ) {
-            assertEquals("John",person.getFirstName()); 
+            assertEquals("John",person.getFirstName());
          }
-      }       
+      }
     }
 
     @Test
@@ -77,7 +77,7 @@ public class PersonResourceMockTest  extends JerseyTest {
 
       Integer id = 10;
       Person mockPerson = new Person(id,"John","Doe");
-      
+
       when(personDao.findPerson(id)).thenReturn(mockPerson);
 
 
@@ -88,11 +88,11 @@ public class PersonResourceMockTest  extends JerseyTest {
       verify(personDao).findPerson(id);
 
       if(result.getStatus() != Response.Status.OK.getStatusCode()){
-        fail("Wrong status code "+result.getStatus());   
-      }    
-      
+        fail("Wrong status code "+result.getStatus());
+      }
+
       Person person = result.readEntity(new GenericType<Person>(){});
-      assertEquals("John",person.getFirstName()); 
+      assertEquals("John",person.getFirstName());
     }
 
 }

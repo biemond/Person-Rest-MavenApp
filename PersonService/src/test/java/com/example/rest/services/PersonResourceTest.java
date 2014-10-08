@@ -1,4 +1,4 @@
-package test.com.example.rest.services;
+package com.example.rest.services;
 
 import com.example.rest.entities.Person;
 import com.example.rest.services.PersonResource;
@@ -35,9 +35,9 @@ public class PersonResourceTest  extends JerseyTest {
                                               .get(Response.class);
 
       if(result.getStatus() != Response.Status.OK.getStatusCode()){
-        fail("Wrong status code "+result.getStatus());   
-      }    
-      
+        fail("Wrong status code "+result.getStatus());
+      }
+
       List<Person> persons =  result.readEntity(new GenericType<List<Person>>(){});
 
       assertEquals(2,persons.size());
@@ -45,11 +45,11 @@ public class PersonResourceTest  extends JerseyTest {
       for ( Person person : persons) {
           assertNotNull(person.getId());
           if ( person.getId() == 1 ) {
-              assertEquals("Edwin",person.getFirstName()); 
+              assertEquals("Edwin",person.getFirstName());
           }
           if ( person.getId() == 2 ) {
-              assertEquals("Mark",person.getFirstName()); 
-          }      
+              assertEquals("Mark",person.getFirstName());
+          }
        }
     }
 
@@ -60,11 +60,11 @@ public class PersonResourceTest  extends JerseyTest {
                                               .get(Response.class);
 
       if(result.getStatus() != Response.Status.OK.getStatusCode()){
-        fail("Wrong status code "+result.getStatus());   
-      }    
-      
+        fail("Wrong status code "+result.getStatus());
+      }
+
       Person person = result.readEntity(new GenericType<Person>(){});
-      assertEquals("Edwin",person.getFirstName()); 
+      assertEquals("Edwin",person.getFirstName());
     }
 
     @Test

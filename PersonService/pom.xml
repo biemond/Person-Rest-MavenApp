@@ -138,7 +138,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/main/test/java/</source>
+                                <source>src/test/java/</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -168,6 +168,37 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                  <debug>false</debug>
+                  <verbose>true</verbose>
+                  <stacktrace>true</stacktrace>
+                  <defaultScriptExtension>.groovy</defaultScriptExtension>
+                  <providerSelection>2.0</providerSelection>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <failIfNoTests>true</failIfNoTests>
+                    <includes>
+                        <include>**/*Test*.*</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-deploy-plugin</artifactId>
               <version>2.8.1</version>
@@ -176,7 +207,6 @@
               </configuration>
             </plugin>
         </plugins>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
     </build>
 
     <dependencies>
@@ -250,6 +280,19 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.3.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.codehaus.gmaven.runtime</groupId>
+           <artifactId>gmaven-runtime-2.0</artifactId>
+           <version>1.5</version>
+           <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 

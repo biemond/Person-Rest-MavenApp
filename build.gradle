@@ -1,0 +1,13 @@
+
+allprojects {
+   task show << { task -> println "$task.project.name"}
+}
+
+subprojects {
+    show << { println "depend on Person-Rest-MavenApp"}
+}
+
+project(':PersonService').show << {
+    println "inside PersonService"
+}
+
