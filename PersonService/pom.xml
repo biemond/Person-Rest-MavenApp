@@ -149,8 +149,8 @@
                 <artifactId>soapui-maven-plugin</artifactId>
                 <version>5.0.0</version>
                 <configuration>
-                    <projectFile>${project.basedir}/src/main/test/resources/soapui/person-soapui-project.xml</projectFile>
-                     <junitReport>true</junitReport>                     
+                    <projectFile>${project.basedir}/src/test/resources/soapui/person-soapui-project.xml</projectFile>
+                     <junitReport>true</junitReport>
                      <printReport>true</printReport>
                      <exportAll>true</exportAll>
                      <testSuite>PersonTestSuite1</testSuite>
@@ -176,7 +176,7 @@
               </configuration>
             </plugin>
         </plugins>
-        <testSourceDirectory>src/main/test/java</testSourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
     </build>
 
     <dependencies>
