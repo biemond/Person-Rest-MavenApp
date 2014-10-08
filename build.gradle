@@ -6,7 +6,7 @@ subprojects {
   sourceCompatibility = "1.7"
   targetCompatibility = "1.7"
 
-  group            = 'com.example.rest.person'
+  group = 'com.example.rest.person'
 
   repositories {
     maven {
@@ -19,7 +19,7 @@ subprojects {
   }
 
   dependencies {
-    deployerJars    "org.apache.maven.wagon:wagon-http:2.2"
+    deployerJars "org.apache.maven.wagon:wagon-http:2.2"
   }
 
   uploadArchives {
