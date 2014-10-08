@@ -1,13 +1,68 @@
 
-allprojects {
-   task show << { task -> println "$task.project.name"}
-}
-
 subprojects {
-    show << { println "depend on Person-Rest-MavenApp"}
+  apply plugin: 'java'
+  apply plugin: 'maven'
+
+  sourceCompatibility = "1.7"
+  targetCompatibility = "1.7"
+
+  group            = 'com.example.rest.person'
+
+  repositories {
+    maven {
+      url = "http://localhost:8081/nexus/content/groups/public/"
+    }
+  }
+
+  configurations {
+    deployerJars
+  }
+
+  dependencies {
+    deployerJars    "org.apache.maven.wagon:wagon-http:2.2"
+  }
+
+  uploadArchives {
+    repositories.mavenDeployer {
+      configuration = configurations.deployerJars
+      repository(url: "http://localhost:8081/nexus/content/repositories/snapshots") {
+        authentication(userName: "admin", password: "admin123")
+      }
+    }
+  }
+
+  test {
+    systemProperty 'aaa','value'
+    jvmArgs        '-Xms256m','-Xmx512m'
+  }
+
+
 }
 
-project(':PersonService').show << {
-    println "inside PersonService"
+project(':PersonService') {
+
+  apply plugin: 'war'
+  apply plugin: 'groovy'
+
+  archivesBaseName = 'PersonService'
+  version          = '1.0-SNAPSHOT'
+
+  dependencies {
+    providedCompile "javax.ws.rs:javax.ws.rs-api:2.0"
+    providedCompile "org.glassfish.jersey.bundles.repackaged:jersey-guava:2.11"
+    providedCompile "org.glassfish.jersey.containers:jersey-container-grizzly2-servlet:2.11"
+    providedCompile "org.glassfish.jersey.core:jersey-client:2.11"
+    providedCompile "org.glassfish.jersey.core:jersey-server:2.11:"
+    providedCompile "org.glassfish.jersey.media:jersey-media-json-jackson:2.11"
+    testCompile     "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.11"
+    testCompile     "org.glassfish.jersey.test-framework:jersey-test-framework-core:2.11"
+    testCompile     "junit:junit:4.11"
+    testCompile     "org.mockito:mockito-all:1.9.5"
+    testCompile     "org.codehaus.groovy:groovy-all:2.3.7"
+  }
+
 }
+
+
+
 

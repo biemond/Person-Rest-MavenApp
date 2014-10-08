@@ -2,3 +2,5 @@
 target
 staging
 *.log
+.gradle
+build
